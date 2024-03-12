@@ -15,6 +15,8 @@ public:
     bool attemptToBuyProperty(Property* property);
     void attemptToPayRent(Property* property);
     void receiveMoney(int amount);
+    void sell(Property* property);
+    void mortgage(Property* property);
 
 
 private:
