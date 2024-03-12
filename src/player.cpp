@@ -11,6 +11,19 @@ int Player::getMoney() const {
     return money;
 }
 
+bool Player::attemptToBuyProperty(Property* property) {
+    if (property->getOwner() != nullptr) {
+        return;
+    }
+    if (money < property->getPrice()) {
+        return false;
+    }
+    money -= property->getPrice();
+    property->setOwner(this);
+    properties.append(property);
+    return true;
+}
+
 bool Player::payRent(int amount) {
     if (money < amount) {
         // The player does not have enough funds to pay the rent
@@ -40,3 +53,4 @@ void Player::attemptToPayRent(Property* property) {
 void Player::receiveMoney(int amount) {
     money += amount;
 }
+
