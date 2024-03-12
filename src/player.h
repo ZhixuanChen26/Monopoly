@@ -3,6 +3,8 @@
 
 #include <QString>
 #include <QList>
+#include <QMessageBox>
+#include <QPushButton>
 
 class Property;
 
