@@ -13,7 +13,7 @@ int Player::getMoney() const {
 
 bool Player::attemptToBuyProperty(Property* property) {
     if (property->getOwner() != nullptr) {
-        return;
+        return false;
     }
     if (money < property->getPrice()) {
         return false;
