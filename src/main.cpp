@@ -1,6 +1,6 @@
 #include <QtWidgets>
-#include "player.cpp"
-#include "property.cpp"
+#include "player.h"
+#include "property.h"
 
 class BoardWidget : public QWidget {
 public:
