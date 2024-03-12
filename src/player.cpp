@@ -1,9 +1,6 @@
 #include "player.h"
 #include "property.h"
 
-#include <QMessageBox>
-#include <QPushButton>
-
 Player::Player(QString name, int initialMoney) : name(name), money(initialMoney) {}
 
 QString Player::getName() const {
@@ -19,11 +16,15 @@ bool Player::attemptToBuyProperty(Property* property) {
         return false;
     }
     if (money < property->getPrice()) {
+        QString failureMessage = QString("%1 does not have enough funds to purchase %2.").arg(name, property->getName());
+        QMessageBox::warning(nullptr, "Insufficient Funds", failureMessage);
         return false;
     }
     money -= property->getPrice();
     property->setOwner(this);
     properties.append(property);
+    QString successMessage = QString("%1 has successfully purchased %2.").arg(name,property->getName());
+    QMessageBox::information(nullptr, "Purchase Successful", successMessage);
     return true;
 }
 
