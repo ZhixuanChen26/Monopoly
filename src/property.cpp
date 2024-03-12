@@ -1,9 +1,13 @@
 #include "property.h"
 
-Property::Property(QString name, int rent) : name(name), rent(rent), owner(nullptr) {}
+Property::Property(QString name, int price, int rent) : name(name), price(prcie), rent(rent), owner(nullptr) {}
 
 QString Property::getName() const {
     return name;
+}
+
+int Property::getPrice() const {
+    return price;
 }
 
 int Property::getRent() const {
@@ -17,3 +21,4 @@ void Property::setOwner(Player* player) {
 Player* Property::getOwner() const {
     return owner;
 }
+
