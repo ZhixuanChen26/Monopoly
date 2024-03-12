@@ -12,7 +12,7 @@ public:
     QString getName() const;
     int getMoney() const;
     bool payRent(int amount);
-    bool attemptToPurchaseProperty(Property* property);
+    bool attemptToBuyProperty(Property* property);
     void attemptToPayRent(Property* property);
     void receiveMoney(int amount);
 
