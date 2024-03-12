@@ -1,6 +1,6 @@
 #include "property.h"
 
-Property::Property(QString name, int price, int rent) : name(name), price(prcie), rent(rent), owner(nullptr) {}
+Property::Property(QString name, int price, int rent) : name(name), price(price), rent(rent), owner(nullptr) {}
 
 QString Property::getName() const {
     return name;
