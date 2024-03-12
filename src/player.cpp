@@ -1,10 +1,24 @@
 #include "player.h"
 #include "property.h"
 
-Player::Player(QString name, int initialMoney) : name(name), money(initialMoney) {}
+Player::Player(QString name, int playerID, QString character, int position, int initialMoney)
+    : hasGetOutofJailCard(false), isTurn(false), inJail(false), isBankrupt(false), name(name),
+    playerID(playerID), character(character), position(position), money(initialMoney) {}
 
 QString Player::getName() const {
     return name;
+}
+
+int Player::getPlayerID() const {
+    return playerID;
+}
+
+QString Player::getCharacter() const {
+    return character;
+}
+
+int Player::getPosition() const {
+    return position;
 }
 
 int Player::getMoney() const {
@@ -88,5 +102,3 @@ void Player::mortgage(Property* property) {
     // Mortgage designated property
     // Update player funds and property mortgage status
 }
-
-
