@@ -1,6 +1,6 @@
 #include <QtWidgets>
-#include "player.cpp"
-#include "property.cpp"
+#include "player.h"
+#include "property.h"
 
 class BoardWidget : public QWidget {
 public:
@@ -14,8 +14,8 @@ public:
         mainLayout->addLayout(boardLayout);
 
         // Add properties and stations to the board
-        QStringList properties = {"Mediterranean Avenue", "Baltic Avenue", "Oriental Avenue" , "Vermont Avenue", "Madison Avenue", "Wall St.","States Avenue", "Verginia St."};
-        QStringList stations = {"Reading Railroad", "Pennsylvania Railroad","B. & O. Railroad","Short Line Railroad"};
+        QStringList properties = {"UCC", "Weldon Library", "Middlesex College" , "Talbot College", "Physics & Astronomy", "Natural Science","Lawson Hall", "Stevenson Hall"};
+        QStringList stations = {"The Spoke", "The Wave","The Grad Club","Einstein Cafe"};
         QStringList chanceCards = {"Chance 1", "Chance 2"};
 
         // Add spaces to the board in the specified order

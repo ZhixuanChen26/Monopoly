@@ -3,18 +3,22 @@
 
 #include <QString>
 #include <QList>
+#include <QMessageBox>
+#include <QPushButton>
 
 class Property;
 
 class Player {
 public:
     Player(QString name, int initialMoney);
-
     QString getName() const;
     int getMoney() const;
-    void receiveMoney(int amount);
     bool payRent(int amount);
+    bool attemptToBuyProperty(Property* property);
     void attemptToPayRent(Property* property);
+    void receiveMoney(int amount);
+    void sell(Property* property);
+    void mortgage(Property* property);
 
 
 private:
@@ -24,3 +28,4 @@ private:
 };
 
 #endif // PLAYER_H
+
