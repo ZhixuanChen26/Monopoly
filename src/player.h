@@ -22,6 +22,9 @@ public:
     bool attemptToBuyProperty(Property* property);
     void attemptToPayRent(Property* property);
     void receiveMoney(int amount);
+    void mortgage(Property* property);
+    bool payRent(int amount);
+    void declareBankruptcy();
 
     // Public attributes
     bool hasGetOutofJailCard;
@@ -37,9 +40,6 @@ private:
     int money;
     QVector<Property*> properties;
 
-    bool payRent(int amount);
-    void sell(Property* property);
-    void mortgage(Property* property);
 };
 
 #endif // PLAYER_H
