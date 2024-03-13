@@ -25,22 +25,43 @@ int Player::getMoney() const {
     return money;
 }
 
+
 bool Player::attemptToBuyProperty(Property* property) {
     if (property->getOwner() != nullptr) {
         return false;
     }
-    if (money < property->getPrice()) {
-        QString failureMessage = QString("%1 does not have enough funds to purchase %2.").arg(name, property->getName());
-        QMessageBox::warning(nullptr, "Insufficient Funds", failureMessage);
-        return false;
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Purchase Property");
+    msgBox.setText(QString("Do you want to purchase %1?").arg(property->getName()));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    int ret = msgBox.exec();
+
+    switch (ret) {
+    case QMessageBox::Yes:{
+        if (money < property->getPrice()) {
+            QString failureMessage = QString("%1 does not have enough funds to purchase %2.").arg(name, property->getName());
+            QMessageBox::warning(nullptr, "Insufficient Funds", failureMessage);
+            return false;
+        }
+        money -= property->getPrice();
+        property->setOwner(this);
+        properties.append(property);
+        QString successMessage = QString("%1 has successfully purchased %2.").arg(name,property->getName());
+        QMessageBox::information(nullptr, "Purchase Successful", successMessage);
+
+        return true;
+            break;
     }
-    money -= property->getPrice();
-    property->setOwner(this);
-    properties.append(property);
-    QString successMessage = QString("%1 has successfully purchased %2.").arg(name,property->getName());
-    QMessageBox::information(nullptr, "Purchase Successful", successMessage);
-    return true;
+        case QMessageBox::No:
+            return false;
+            break;
+        default:
+            break;
+    }
+        return false;
 }
+
 
 bool Player::payRent(int amount) {
     if (money < amount) {
