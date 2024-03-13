@@ -52,40 +52,26 @@ bool Player::payRent(int amount) {
 }
 
 void Player::attemptToPayRent(Property* property) {
-    // If the property has no owner, or the player is the owner, dont need to pay rent
     if (property->getOwner() == nullptr || property->getOwner() == this) {
-        return;
+        QMessageBox::information(nullptr, "No Rent to Pay", "You don't need to pay rent for this property.");
+        return; // If the property has no owner or the player is the owner, there is no need to pay rent
     }
 
     int rent = property->getRent();
     bool paymentSuccess = payRent(rent);
 
-    if (!paymentSuccess) {
-        // Insufficient funds, a dialog box pops up
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Insufficient funds");
-        msgBox.setText("You don’t have enough funds to pay the rent");
-        msgBox.setInformativeText("Do you want to sell your property or mortgage them to raise funds?");
+    // try to increase money to pay the rent.
+    while (!paymentSuccess && !properties.isEmpty()) {
+        mortgage(property);
+        paymentSuccess = payRent(rent);
+    }
 
-        QPushButton *sellButton = msgBox.addButton("sell property", QMessageBox::YesRole);
-        QPushButton *mortgageButton = msgBox.addButton("mortgage property", QMessageBox::NoRole);
-        QPushButton *cancelButton = msgBox.addButton("cancel", QMessageBox::RejectRole);
-
-        msgBox.exec();
-
-        if (msgBox.clickedButton() == sellButton) {
-            // Player chooses to sell property
-            sell(property);
-        } else if (msgBox.clickedButton() == mortgageButton) {
-            // Players choose mortgage property
-            mortgage(property);
-        } else if (msgBox.clickedButton() == cancelButton) {
-            // Player chooses to cancel, go bankrupt, quit the game.
-
-        }
-    }else {
-        // Successfully pay rent to the owner of the property
+    if (paymentSuccess) {
+        // Rent payment successful
         property->getOwner()->receiveMoney(rent);
+        QMessageBox::information(nullptr, "Payment Success", "Rent payment successful.");
+    } else{
+        declareBankruptcy();
     }
 }
 
@@ -93,9 +79,17 @@ void Player::receiveMoney(int amount) {
     money += amount;
 }
 
-void Player::sell(Property* property) {
-    // Sell the designated properties
-    // Update player funds and property ownership
+void Player::declareBankruptcy() {
+    QMessageBox::information(nullptr, "Payment Failure", "Bankruptcy");
+
+    for (auto property : properties) {
+        if(property != nullptr){
+            property->setOwner(nullptr);
+        }
+    }
+    properties.clear();
+    money = 0;
+    isBankrupt = true;
 }
 
 void Player::mortgage(Property* property) {
