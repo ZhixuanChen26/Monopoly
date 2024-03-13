@@ -1,13 +1,18 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <QObject>
 #include <QString>
 #include <QVector>
+#include <QList>
 #include <QMessageBox>
 #include <QPushButton>
 
 // Forward declaration
 class Property;
+
+class Player : public QObject {
+    Q_OBJECT
 
 class Player {
 public:
@@ -25,6 +30,7 @@ public:
     void mortgage(Property* property);
     bool payRent(int amount);
     void declareBankruptcy();
+    void displayPlayerInfo();
 
     // Public attributes
     bool hasGetOutofJailCard;
@@ -32,6 +38,9 @@ public:
     bool inJail;
     bool isBankrupt;
 
+signals:
+    void moneyChanged(int newAmount);
+      
 private:
     QString name;
     int playerID;
