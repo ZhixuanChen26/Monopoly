@@ -3,8 +3,13 @@
 #include "property.h"
 
 class BoardWidget : public QWidget {
+  
+private:
+    Player* player;
 public:
     BoardWidget(QWidget *parent = nullptr) : QWidget(parent) {
+        player = new Player("Player 1", 0);
+        player->receiveMoney(10000);
         // Set up the main layout
         QVBoxLayout *mainLayout = new QVBoxLayout(this);
         mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -57,6 +62,18 @@ public:
         tokenLabel->setAlignment(Qt::AlignCenter);
         tokenLabel->setStyleSheet("background-color: red; border-radius: 10px; color: white;");
         layout->addWidget(tokenLabel, row, col);
+    }
+  
+public slots:
+    void checkWinCondition() {
+        if (player->getMoney() >= 10000) {
+            QString winMessage = QString("%1 has won the game with $%2!").arg(player->getName()).arg(player->getMoney());
+            QMessageBox winBox;
+            winBox.setWindowTitle("Game Over");
+            winBox.setText(winMessage);
+            winBox.exec();
+            QApplication::quit();
+        }
     }
 };
 
