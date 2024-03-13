@@ -96,3 +96,8 @@ void Player::mortgage(Property* property) {
     // Mortgage designated property
     // Update player funds and property mortgage status
 }
+
+void Player::displayPlayerInfo()  {
+    QString playerInfo = QString("Player: %1\nMoney: %2").arg(name).arg(money);
+    QMessageBox::information(nullptr, "Player Information", playerInfo);
+}
