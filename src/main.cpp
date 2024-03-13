@@ -46,8 +46,9 @@ public:
         addSpace(boardLayout, 1, 0, 1, 1, properties.at(1));
 
         // Add player tokens
-        addPlayerToken(boardLayout, 0, 0); // Player 1
-
+        for (int i = 0; i < players.size(); ++i) {
+            addPlayerToken(boardLayout, 0, i, players[i].getCharacter());
+        }
     }
 
     void addSpace(QGridLayout *layout, int row, int col, int rowSpan, int colSpan, const QString &text) {
@@ -57,12 +58,31 @@ public:
         layout->addWidget(spaceLabel, row, col, rowSpan, colSpan);
     }
 
-    void addPlayerToken(QGridLayout *layout, int row, int col) {
-        QLabel *tokenLabel = new QLabel("P", this);
+    void addPlayerToken(QGridLayout *layout, int row, int col, const QString &token) {
+        QLabel *tokenLabel = new QLabel(this);
+
+        // Set the pixmap based on the token
+        if (token == "cat") {
+            tokenLabel->setPixmap(QPixmap(":cat.png").scaledToWidth(70));
+        } else if (token == "boat") {
+            tokenLabel->setPixmap(QPixmap(":boat.png").scaledToWidth(70));
+        } else if (token == "moneybag") {
+            tokenLabel->setPixmap(QPixmap(":moneybag.png").scaledToWidth(70));
+        } else if (token == "hat") {
+            tokenLabel->setPixmap(QPixmap(":hat.png").scaledToWidth(70));
+        } else if (token == "duck") {
+            tokenLabel->setPixmap(QPixmap(":duck.png").scaledToWidth(70));
+        } else if (token == "car") {
+            tokenLabel->setPixmap(QPixmap(":car.png").scaledToWidth(70));
+        }
+
         tokenLabel->setAlignment(Qt::AlignCenter);
-        tokenLabel->setStyleSheet("background-color: red; border-radius: 10px; color: white;");
         layout->addWidget(tokenLabel, row, col);
     }
+  
+private:
+    QVector<Player> players;
+};
   
 public slots:
     void checkWinCondition() {
@@ -80,10 +100,55 @@ public slots:
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
 
-    BoardWidget boardWidget;
+    // Prompt the user to enter the number of players
+    bool ok;
+    int numPlayers = QInputDialog::getInt(nullptr, "Enter Number of Players", "Enter a number between 2 and 6:", 2, 2, 6, 1, &ok);
+    if (!ok) return 0; // User canceled, exit the application
+
+    QVector<Player> players;
+    QStringList availableCharacters = {"car", "boat", "cat", "moneybag", "hat", "duck"};
+
+    QDialog dialog;
+    QVBoxLayout layout(&dialog);
+    QComboBox characterComboBox;
+    characterComboBox.addItems(availableCharacters); // Add available characters to the combo box
+    layout.addWidget(&characterComboBox);
+
+    QPushButton submitButton("Submit");
+    layout.addWidget(&submitButton);
+
+    int playersSelected = 0; // Counter to track the number of players whose tokens have been selected
+
+    QObject::connect(&submitButton, &QPushButton::clicked, [&]() {
+        QString name = QInputDialog::getText(&dialog, QString("Enter Player %1's Name").arg(playersSelected + 1), "Name:");
+        if (name.isEmpty()) return; // User canceled, do nothing
+
+        QString character = characterComboBox.currentText();
+        if (character.isEmpty()) return; // No character selected, do nothing
+
+        availableCharacters.removeAll(character);
+
+        players.append(Player(name, playersSelected + 1, character, 0, 1500)); // Assuming initial position is 0 and initial money is 1500
+        characterComboBox.clear();
+        characterComboBox.addItems(availableCharacters); // Update the combo box with remaining available characters
+        dialog.setWindowTitle(QString("Select Player %1's Token").arg(playersSelected + 2)); // Set window title for the next player
+        ++playersSelected; // Increment the counter
+
+        if (playersSelected == numPlayers) // If tokens have been selected for all players, close the dialog
+            dialog.accept();
+    });
+
+    // Show the dialog
+    dialog.setWindowTitle(QString("Select Player %1's Token").arg(playersSelected + 1));
+    dialog.exec();
+    if (dialog.result() == QDialog::Rejected) return 0; // User canceled, exit the application
+
+    // Create and show the board widget
+    BoardWidget boardWidget(players);
     boardWidget.setWindowTitle("Monopoly Board");
     boardWidget.show();
 
     return app.exec();
 }
+
 
