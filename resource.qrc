@@ -1,0 +1,43 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Images/dice1.png</file>
+        <file>Images/dice2.png</file>
+        <file>Images/dice3.png</file>
+        <file>Images/dice4.png</file>
+        <file>Images/dice5.png</file>
+        <file>Images/dice6.png</file>
+        <file>Images/hat.png</file>
+        <file>Images/baseball.png</file>
+        <file>Images/dog.png</file>
+        <file>Images/soccer.png</file>
+        <file>Images/surfer.png</file>
+        <file>Images/dragon.png</file>
+        <file>Images/barrow.png</file>
+        <file>Images/pretzel.png</file>
+        <file>Images/car.png</file>
+        <file>Images/ship.png</file>
+        <file>Images/chancecard.png</file>
+        <file>Images/communitychest.png</file>
+        <file>Images/Monopoly.png</file>
+        <file>Images/community9.png</file>
+        <file>Images/community8.png</file>
+        <file>Images/community7.png</file>
+        <file>Images/community6.png</file>
+        <file>Images/community5.png</file>
+        <file>Images/community4.png</file>
+        <file>Images/community3.png</file>
+        <file>Images/community2.png</file>
+        <file>Images/community1.png</file>
+        <file>Images/community0.png</file>
+        <file>Images/chance9.png</file>
+        <file>Images/chance8.png</file>
+        <file>Images/chance7.png</file>
+        <file>Images/chance6.png</file>
+        <file>Images/chance5.png</file>
+        <file>Images/chance4.png</file>
+        <file>Images/chance3.png</file>
+        <file>Images/chance2.png</file>
+        <file>Images/chance1.png</file>
+        <file>Images/chance0.png</file>
+    </qresource>
+</RCC>
