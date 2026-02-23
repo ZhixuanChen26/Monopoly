@@ -142,8 +142,6 @@ BottomBar::BottomBar() {
     chance[index[9]]->setCardText(":/Images/chance9.png");
     chance[index[9]]->setAmount(100);
 
-
-
     //setting up all the buttons
     rollButton = new QPushButton("Roll Dice");
     upgradeButton = new QPushButton("Upgrade");
@@ -163,7 +161,6 @@ BottomBar::BottomBar() {
     layout->addWidget(player2Button, 1, 1);
     layout->addWidget(player3Button, 1, 2);
     layout->addWidget(player4Button, 1, 3);
-
 
     this->setMaximumSize(QSize(800, 100));
 
@@ -280,8 +277,7 @@ void BottomBar::rollDice(){
         allPlayers[currentPlayerNum]->setMoneyText();
     }
 
-    /*****************************     If new location is a Property     *****************************/
-
+    //If new location is a Property
     int currentOwnership = myWindow->getSpaceOwnership(newSpace);
 
     //if the space is some sort of property...
@@ -304,7 +300,6 @@ void BottomBar::rollDice(){
                 allPlayers[currentPlayerNum]->setMoneyText();
             }
         }
-
 
         //checking if players are out of money
         if(myWindow->getPlayerMoney(currentPlayerNum) <= 0 && myWindow->isPlayerAlive(currentPlayerNum) == true){
@@ -332,8 +327,6 @@ void BottomBar::rollDice(){
             numAlive--;
 
         }
-
-        /*******************************     If new Location is a "Tax"     **********************************/
 
         //if the space is a Tax...
     } else if(myWindow->spaceType(newSpace) == "Tax"){
@@ -366,27 +359,17 @@ void BottomBar::rollDice(){
             numAlive--;
         }
 
-
-
-        /*******************************     If new Location is "Free walk"     **********************************/
-
         //if the space is Free Parking...
     } else if(myWindow->spaceType(newSpace) == "Free Walk"){
         moneyAction.executeAction(freePark, myWindow->getPlayer(currentPlayerNum), freePark->getMoneyAmount());
         freePark->setMoneyAmount(0);
         allPlayers[currentPlayerNum]->setMoneyText();
 
-
-        /*******************************     If new Location is "Go To Jail"     **********************************/
-
         //if the space is Go To Jail...
     } else if(myWindow->spaceType(newSpace) == "GoJail"){
         myWindow->setPlayerLocation(currentPlayerNum, 10);
         moneyAction.executeAction(myWindow->getPlayer(currentPlayerNum), freePark, 200);
         monopolyBoard->movePieces(currentPlayerNum, myWindow->getPlayerPixels(currentPlayerNum));
-
-
-        /*******************************     If new Location is "Community Chest"     **********************************/
 
         //if the space is Community Chest...
     } else if (myWindow->spaceType(newSpace) == "Community Chest"){
@@ -404,9 +387,6 @@ void BottomBar::rollDice(){
         }
 
         allPlayers[currentPlayerNum]->setMoneyText();
-
-
-        /*******************************     If new Location is "Chance"     **********************************/
 
         //if the space is Chance...
     } else if (myWindow->spaceType(newSpace) == "Chance"){
@@ -570,7 +550,6 @@ void BottomBar::endTurn(){
         }
     }
 }
-
 
 
 

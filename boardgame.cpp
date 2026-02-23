@@ -14,8 +14,6 @@
 #include "bank.h"
 #include "mainwindow.h"
 
-using namespace std;
-
 int main(int argv, char* argc[]) {
 
     //creating QApp
@@ -29,7 +27,7 @@ int main(int argv, char* argc[]) {
     char gamePieces[10] = {'~', '!', '@', '#', '$', '%', '^', '&', '*', '?'};
     int numOfPieces = 10;
 
-    /*************    setting up NUMBER OF PLAYERS pop up box    *****************/
+    //setting up NUMBER OF PLAYERS pop up box
     QMessageBox numPlayersBox;
     QPushButton *button2 = numPlayersBox.addButton(QPushButton::tr("Two"), QMessageBox::ActionRole);
     QPushButton *button3 = numPlayersBox.addButton(QPushButton::tr("Three"), QMessageBox::ActionRole);
@@ -50,8 +48,6 @@ int main(int argv, char* argc[]) {
 
     }
 
-    /*****************************************************************************/
-
     //setting up the game
     MainWindow mainWindow(numOfPlayers);
     Game_Board gameBoard;
@@ -61,17 +57,16 @@ int main(int argv, char* argc[]) {
     MoneyAction moneyAction;
     GoToAction goToAction;
     Dice dice[2];
-    string gamePieceIcons[10] = {"hat.png", "baseball.png", "dog.png", "soccer.png", "surfer.png", "dragon.png", "barrow.png", "pretzel.png", "car.png", "ship.png"};
+    std::string gamePieceIcons[10] = {"hat.png", "baseball.png", "dog.png", "soccer.png", "surfer.png", "dragon.png", "barrow.png", "pretzel.png", "car.png", "ship.png"};
 
-    /**************      Setting up Game Piece Choices     ******************/
-
+    //Setting up Game Piece Choices
     QPushButton *icon[10];
 
     //giving game pieces to players
     for(int i = 0; i < numOfPlayers; i++){
 
-        stringstream ss;
-        string tempPlayerNum;
+        std::stringstream ss;
+        std::string tempPlayerNum;
         int indexPiece = 0;
 
         //allowing user to choose game piece
@@ -110,7 +105,7 @@ int main(int argv, char* argc[]) {
 
         //rearranging the game pieces to account for chosen piece
         for(int x = indexPiece; x < numOfPieces; x++){
-            string tempPiece = "";
+            std::string tempPiece = "";
             tempPiece = gamePieceIcons[x];
             gamePieceIcons[x] = gamePieceIcons[x+1];
             gamePieceIcons[x+1] = tempPiece;
@@ -118,18 +113,10 @@ int main(int argv, char* argc[]) {
 
     }
 
-    /*****************************************************************************/
-
     //setting up Full Game Board in Qt
     mainWindow.windowSetUp();
     mainWindow.show();
     return app.exec();
-
-
-
-
-
-
 
     //creating shuffled index
     int index[10] = {0,1,2,3,4,5,6,7,8,9};
@@ -269,16 +256,16 @@ int main(int argv, char* argc[]) {
     gameBoard.displayHorizontal(10, 0, numOfPlayers);
 
     //Begin Game
-    stringstream ss;
-    string enterBuffer;
-    getline(cin, enterBuffer);
+    std::stringstream ss;
+    std::string enterBuffer;
+    getline(std::cin, enterBuffer);
     int diceRoll1;
     int diceRoll2;
     int communityCount = 0;
     int chanceCount = 0;
     int numAlive = numOfPlayers;
 
-    cout << endl;
+    std::cout << std::endl;
 
     //as long as there are players, continue the game
     while(numAlive > 1){
@@ -288,34 +275,34 @@ int main(int argv, char* argc[]) {
 
             if(gameBoard.isPlayerAlive(i) == true){
 
-                cout << "It's " << gameBoard.getPlayerName(i);
-                cout << "'s turn!" << endl;
+                std::cout << "It's " << gameBoard.getPlayerName(i);
+                std::cout << "'s turn!" << std::endl;
 
                 int answer = 0;
 
                 while(answer != 1){
                     do{
                         //print out menu
-                        cout << "Please choose one of the following options..." << endl;
-                        cout << " 1. Roll" << endl;
-                        cout << " 2. Upgrade" << endl;
-                        cout << " 3. Quit" << endl;
-                        cout << "Enter a number between 1 and 3: ";
+                        std::cout << "Please choose one of the following options..." << std::endl;
+                        std::cout << " 1. Roll" << std::endl;
+                        std::cout << " 2. Upgrade" << std::endl;
+                        std::cout << " 3. Quit" << std::endl;
+                        std::cout << "Enter a number between 1 and 3: ";
 
-                        cin >> answer;
+                        std::cin >> answer;
 
-                        if(cin.fail()){
-                            cin.clear();
-                            cin.ignore(10000, '\n');
-                            cout << "Improper input! Try again!" << endl << endl;
+                        if(std::cin.fail()){
+                            std::cin.clear();
+                            std::cin.ignore(10000, '\n');
+                            std::cout << "Improper input! Try again!" << std::endl << std::endl;
                             continue;
                         } else if(answer < 1 || answer > 3){
-                            cout << "\nNumber is out of range... Try again!" << endl << endl;
+                            std::cout << "\nNumber is out of range... Try again!" << std::endl << std::endl;
                             continue;
                         }
 
-                        getline(cin, enterBuffer);
-                        cout << endl;
+                        getline(std::cin, enterBuffer);
+                        std::cout << std::endl;
                     } while (answer < 1 || answer > 3);
 
                     switch(answer){
@@ -327,7 +314,7 @@ int main(int argv, char* argc[]) {
                         int own[40];
                         int count = 0;
                         int upgradeNum = 0;
-                        stringstream ss2;
+                        std::stringstream ss2;
 
                         for(int x = 0; x < 40; x++){
                             if(gameBoard.getSpaceOwnership(x) == i && gameBoard.spaceType(x) == "Property"){
@@ -336,12 +323,12 @@ int main(int argv, char* argc[]) {
                             }
                         }
 
-                        string tempName1;
-                        string tempName2;
+                        std::string tempName1;
+                        std::string tempName2;
                         int j = 0;
 
-                        cout << "You own the following properties:" << endl;
-                        cout << " 1. Cancel" << endl;
+                        std::cout << "You own the following properties:" << std::endl;
+                        std::cout << " 1. Cancel" << std::endl;
 
                         for(j = 0; j < count; j++){
                             int currentOwn = own[j];
@@ -354,34 +341,34 @@ int main(int argv, char* argc[]) {
                             ss2 >> tempName2;
                             ss2.clear();
 
-                            cout << " " << j+2 << ". " << tempName1 << " " << tempName2 << ": $" << gameBoard.getSpacePropertyCost(currentOwn) << endl;
+                            std::cout << " " << j+2 << ". " << tempName1 << " " << tempName2 << ": $" << gameBoard.getSpacePropertyCost(currentOwn) << std::endl;
                         }
 
-                        cout << endl << "What would you like to upgrade? (Max 4 upgrades): ";
+                        std::cout << std::endl << "What would you like to upgrade? (Max 4 upgrades): ";
 
                         while(upgradeNum < 1 || upgradeNum > j+1){
 
-                            cin >> upgradeNum;
-                            if(cin.fail()){
-                                cin.clear();
-                                cin.ignore(10000, '\n');
-                                cout << "Invalid entry. Try again: ";
+                            std::cin >> upgradeNum;
+                            if(std::cin.fail()){
+                                std::cin.clear();
+                                std::cin.ignore(10000, '\n');
+                                std::cout << "Invalid entry. Try again: ";
                                 continue;
                             } else if (upgradeNum < 1 || upgradeNum > j+1){
-                                cout << "Entry out of range...Try again: ";
+                                std::cout << "Entry out of range...Try again: ";
                                 continue;
                             }
                         }
 
                         if(upgradeNum == 1){
-                            cout << endl;
+                            std::cout << std::endl;
                             continue;
                         }
 
                         upgradeNum = upgradeNum - 2;
 
-                        string tempName3;
-                        string tempName4;
+                        std::string tempName3;
+                        std::string tempName4;
 
                         ss.clear();
                         ss2 << gameBoard.getSpaceName(own[upgradeNum], 0);
@@ -391,14 +378,14 @@ int main(int argv, char* argc[]) {
                         ss2.clear();
 
                         if(gameBoard.getPlayerMoney(i) - gameBoard.getSpacePropertyCost(own[upgradeNum]) <= 0) {
-                            cout << "You do not have enough money to upgrade this property!" << endl << endl;
+                            std::cout << "You do not have enough money to upgrade this property!" << std::endl << std::endl;
                             continue;
                         }
 
                         gameBoard.upgradeSpace(own[upgradeNum]);
                         moneyAction.giveBank(gameBoard.getPlayer(i), &bank, gameBoard.getSpacePropertyCost(own[upgradeNum]));
 
-                        cout << "You have just upgraded " << tempName3 << " " << tempName4 << endl << endl;
+                        std::cout << "You have just upgraded " << tempName3 << " " << tempName4 << std::endl << std::endl;
                         break;
                     }
                     case 3:
@@ -408,10 +395,10 @@ int main(int argv, char* argc[]) {
                 }
 
                 //rolling the die and moving the player
-                cin.clear();
+                std::cin.clear();
                 diceRoll1 = dice[0].rollDice();
                 diceRoll2 = dice[1].rollDice();
-                cout << "You rolled...Move " << diceRoll1 + diceRoll2 << " steps." << endl << endl;
+                std::cout << "You rolled...Move " << diceRoll1 + diceRoll2 << " steps." << std::endl << std::endl;
                 int pastLocation = gameBoard.getPlayerLocation(i);
                 gameBoard.move(i, diceRoll1 + diceRoll2);
                 int currentLocation = gameBoard.getPlayerLocation(i);
@@ -422,7 +409,7 @@ int main(int argv, char* argc[]) {
                 //if you pass GO collect $200
                 if(pastLocation > currentLocation){
                     moneyAction.takeBank(gameBoard.getPlayer(i), &bank,  200);
-                    cout << "*** You Passed GO! Collect $200! ***" << endl << endl;
+                    std::cout << "*** You Passed GO! Collect $200! ***" << std::endl << std::endl;
                 }
 
                 /********************** Actions for Specific Space Types **************************/
@@ -434,48 +421,48 @@ int main(int argv, char* argc[]) {
                     if(gameBoard.getSpaceOwnership(currentLocation) < 0) {
 
                         char purchaseAnswer;
-                        string tempName1;
-                        string tempName2;
+                        std::string tempName1;
+                        std::string tempName2;
                         ss << gameBoard.getSpaceName(currentLocation, 0);
                         ss << gameBoard.getSpaceName(currentLocation, 1);
                         ss >> tempName1;
                         ss >> tempName2;
                         ss.clear();
 
-                        cout << "Would you like to purchase \"" << tempName1 << " " << tempName2 << "\" for " << gameBoard.getSpacePropertyCost(currentLocation) << "? (y or n): ";
+                        std::cout << "Would you like to purchase \"" << tempName1 << " " << tempName2 << "\" for " << gameBoard.getSpacePropertyCost(currentLocation) << "? (y or n): ";
 
                         do{
-                            cin >> purchaseAnswer;
-                            if(cin.fail()){
-                                cin.clear();
-                                cin.ignore(10000, '\n');
-                                cout << "Improper Entry. Please enter 'y' or 'n': ";
+                            std::cin >> purchaseAnswer;
+                            if(std::cin.fail()){
+                                std::cin.clear();
+                                std::cin.ignore(10000, '\n');
+                                std::cout << "Improper Entry. Please enter 'y' or 'n': ";
                                 continue;
                             } else if(purchaseAnswer != 'y' && purchaseAnswer != 'n'){
-                                cout << "Error, please enter 'y' or 'n'! Try again: ";
+                                std::cout << "Error, please enter 'y' or 'n'! Try again: ";
                                 continue;
                             }
                         } while(purchaseAnswer!= 'y' && purchaseAnswer != 'n');
 
-                        getline(cin, enterBuffer);
-                        cin.clear();
-                        cout << endl;
+                        getline(std::cin, enterBuffer);
+                        std::cin.clear();
+                        std::cout << std::endl;
 
                         //you purchase the property
                         if(purchaseAnswer == 'y'){
 
                             //if player cannot afford the property
                             if(gameBoard.getPlayerMoney(i) - gameBoard.getSpacePropertyCost(currentLocation) <= 0) {
-                                cout << "You do not have enough money to purchase this property!" << endl << endl;
+                                std::cout << "You do not have enough money to purchase this property!" << std::endl << std::endl;
 
                                 //printing out player's money
                                 for(int j = 0; j < numOfPlayers; j++){
                                     if(gameBoard.isPlayerAlive(j) == true){
-                                        cout << gameBoard.getPlayerName(j) << ": $"<< gameBoard.getPlayerMoney(j) << endl;
+                                        std::cout << gameBoard.getPlayerName(j) << ": $"<< gameBoard.getPlayerMoney(j) << std::endl;
                                     }
                                 }
 
-                                cout << "~~~~~~~~~~~~~~~~~~" << endl << endl;
+                                std::cout << "~~~~~~~~~~~~~~~~~~" << std::endl << std::endl;
                                 continue;
                             }
 
@@ -485,21 +472,21 @@ int main(int argv, char* argc[]) {
 
                             //you do not purchase the property
                         } else {
-                            cout << "You do not buy this property..." << endl << endl;
+                            std::cout << "You do not buy this property..." << std::endl << std::endl;
                         }
 
                         //if the property is owned...
                     } else if(gameBoard.getSpaceOwnership(currentLocation) >= 0) {
 
                         if(gameBoard.getPlayerName(i) != gameBoard.getPlayerName(gameBoard.getSpaceOwnership(currentLocation))){
-                            cout << "You must pay $" << gameBoard.getSpaceRent(currentLocation) << " to " << gameBoard.getPlayerName(currentOwnership) << "." << endl << endl;
+                            std::cout << "You must pay $" << gameBoard.getSpaceRent(currentLocation) << " to " << gameBoard.getPlayerName(currentOwnership) << "." << std::endl << std::endl;
                             moneyAction.executeAction(gameBoard.getPlayer(i), gameBoard.getPlayer(currentOwnership), gameBoard.getSpaceRent(currentLocation));
                         }
 
                         //checking if players are out of money
                         if(gameBoard.getPlayerMoney(i) <= 0 && gameBoard.isPlayerAlive(i) == true){
-                            cout << "*************************************" << endl;
-                            cout << gameBoard.getPlayerName(i) << " is out of money! He drops out of the game!" << endl;
+                            std::cout << "*************************************" << std::endl;
+                            std::cout << gameBoard.getPlayerName(i) << " is out of money! He drops out of the game!" << std::endl;
                             gameBoard.playerLost(i);
 
                             for(int j = 0; j < 40; j++){
@@ -508,8 +495,8 @@ int main(int argv, char* argc[]) {
                                 }
                             }
 
-                            cout << "All of " << gameBoard.getPlayerName(i) << "'s properties are now returned to the bank." << endl;
-                            cout << "*************************************" << endl << endl;
+                            std::cout << "All of " << gameBoard.getPlayerName(i) << "'s properties are now returned to the bank." << std::endl;
+                            std::cout << "*************************************" << std::endl << std::endl;
 
                             numAlive--;
                             continue;
@@ -518,13 +505,13 @@ int main(int argv, char* argc[]) {
 
                     //if the space is a Tax...
                 } else if(gameBoard.spaceType(currentLocation) == "Tax"){
-                    cout << "You must pay $" << gameBoard.getSpaceTax(currentLocation) << " in taxes!" << endl << endl;
+                    std::cout << "You must pay $" << gameBoard.getSpaceTax(currentLocation) << " in taxes!" << std::endl << std::endl;
                     moneyAction.executeAction(gameBoard.getPlayer(i), &freePark, gameBoard.getSpaceTax(currentLocation));
 
                     //checking if players are out of money
                     if(gameBoard.getPlayerMoney(i) <= 0 && gameBoard.isPlayerAlive(i) == true){
-                        cout << "*************************************" << endl;
-                        cout << gameBoard.getPlayerName(i) << " is out of money! He drops out of the game!" << endl;
+                        std::cout << "*************************************" << std::endl;
+                        std::cout << gameBoard.getPlayerName(i) << " is out of money! He drops out of the game!" << std::endl;
                         gameBoard.playerLost(i);
 
                         for(int j = 0; j < 40; j++){
@@ -533,8 +520,8 @@ int main(int argv, char* argc[]) {
                             }
                         }
 
-                        cout << "All of " << gameBoard.getPlayerName(i) << "'s properties are now returned to the bank." << endl;
-                        cout << "*************************************" << endl << endl;
+                        std::cout << "All of " << gameBoard.getPlayerName(i) << "'s properties are now returned to the bank." << std::endl;
+                        std::cout << "*************************************" << std::endl << std::endl;
 
                         numAlive--;
                         continue;
@@ -543,28 +530,28 @@ int main(int argv, char* argc[]) {
 
                     //if the space is Free Parking...
                 } else if(gameBoard.spaceType(currentLocation) == "FreeParking"){
-                    cout << "You landed on Financial Aid! Collect $" << freePark.getMoneyAmount() << "." << endl << endl;
+                    std::cout << "You landed on Financial Aid! Collect $" << freePark.getMoneyAmount() << "." << std::endl << std::endl;
                     moneyAction.executeAction(&freePark, gameBoard.getPlayer(i), freePark.getMoneyAmount());
 
                     //if the space is Go To Jail...
                 } else if(gameBoard.spaceType(currentLocation) == "GoJail"){
-                    cout << "Go Directly to Jail and pay $100! >:D" << endl << endl;
+                    std::cout << "Go Directly to Jail and pay $100! >:D" << std::endl << std::endl;
                     goToAction.executeAction(gameBoard.getPlayer(i), gameBoard.getPlayer(i), 10);
 
                     moneyAction.executeAction(gameBoard.getPlayer(i), &freePark, 100);
 
                     //if the space is Community Chest...
                 } else if (gameBoard.spaceType(currentLocation) == "Community Chest"){
-                    cout << "You landed on Community Chest!" << endl << endl;
+                    std::cout << "You landed on Community Chest!" << std::endl << std::endl;
                     community[communityCount]->cardAction(&bank, gameBoard.getPlayer(i));
 
-                    cout << community[communityCount]->getCardText(0) << endl;
-                    cout << community[communityCount]->getCardText(1) << endl << endl;
+                    std::cout << community[communityCount]->getCardText(0) << std::endl;
+                    std::cout << community[communityCount]->getCardText(1) << std::endl << std::endl;
 
                     futureLocation = gameBoard.getPlayerLocation(i);
                     if(futureLocation < currentLocation){
                         moneyAction.takeBank(gameBoard.getPlayer(i), &bank,  200);
-                        cout << "*** You Passed GO! Collect $200! ***" << endl << endl;
+                        std::cout << "*** You Passed GO! Collect $200! ***" << std::endl << std::endl;
                     }
 
                     communityCount++;
@@ -574,16 +561,16 @@ int main(int argv, char* argc[]) {
 
                     //if the space is Chance...
                 } else if (gameBoard.spaceType(currentLocation) == "Chance"){
-                    cout << "You landed on Chance!" << endl << endl;
+                    std::cout << "You landed on Chance!" << std::endl << std::endl;
                     chance[chanceCount]->cardAction(&bank, gameBoard.getPlayer(i));
 
-                    cout << chance[chanceCount]->getCardText(0) << endl;
-                    cout << chance[chanceCount]->getCardText(1) << endl << endl;
+                    std::cout << chance[chanceCount]->getCardText(0) << std::endl;
+                    std::cout << chance[chanceCount]->getCardText(1) << std::endl << std::endl;
 
                     futureLocation = gameBoard.getPlayerLocation(i);
                     if(futureLocation < currentLocation){
                         moneyAction.takeBank(gameBoard.getPlayer(i), &bank, 200);
-                        cout << "*** You Passed GO! Collect $200! ***" << endl << endl;
+                        std::cout << "*** You Passed GO! Collect $200! ***" << std::endl << std::endl;
                     }
 
                     chanceCount++;
@@ -595,19 +582,19 @@ int main(int argv, char* argc[]) {
                 //printing out player's money
                 for(int i = 0; i < numOfPlayers; i++){
                     if(gameBoard.isPlayerAlive(i) == true){
-                        cout << gameBoard.getPlayerName(i) << ": $"<< gameBoard.getPlayerMoney(i) << endl;
+                        std::cout << gameBoard.getPlayerName(i) << ": $"<< gameBoard.getPlayerMoney(i) << std::endl;
                     }
                 }
 
-                cout << "~~~~~~~~~~~~~~~~~~" << endl << endl;
+                std::cout << "~~~~~~~~~~~~~~~~~~" << std::endl << std::endl;
             }
         }
 
         //checking if players are out of money
         for(int i = 0; i < numOfPlayers; i++){
             if(gameBoard.getPlayerMoney(i) <= 0 && gameBoard.isPlayerAlive(i) == true){
-                cout << "*************************************" << endl;
-                cout << gameBoard.getPlayerName(i) << " is out of money! He drops out of the game!" << endl;
+                std::cout << "*************************************" << std::endl;
+                std::cout << gameBoard.getPlayerName(i) << " is out of money! He drops out of the game!" << std::endl;
                 gameBoard.playerLost(i);
 
                 for(int j = 0; j < 40; j++){
@@ -616,8 +603,8 @@ int main(int argv, char* argc[]) {
                     }
                 }
 
-                cout << "All of " << gameBoard.getPlayerName(i) << "'s properties are now returned to the bank." << endl;
-                cout << "*************************************" << endl << endl;
+                std::cout << "All of " << gameBoard.getPlayerName(i) << "'s properties are now returned to the bank." << std::endl;
+                std::cout << "*************************************" << std::endl << std::endl;
 
                 numAlive--;
                 continue;
@@ -627,21 +614,21 @@ int main(int argv, char* argc[]) {
         if(numAlive <= 1){
             for(int x = 0; x < numOfPlayers; x++){
                 if(gameBoard.isPlayerAlive(x) == true){
-                    cout << "****************************" << endl;
-                    cout << gameBoard.getPlayerName(x) << " is the winner! Congratulations!" << endl;
-                    cout << "****************************" << endl;
+                    std::cout << "****************************" << std::endl;
+                    std::cout << gameBoard.getPlayerName(x) << " is the winner! Congratulations!" << std::endl;
+                    std::cout << "****************************" << std::endl;
                 }
                 return 0;
             }
         }
 
-        cout << "Press 'enter' to print the board." << endl;
-        getline(cin, enterBuffer);
+        std::cout << "Press 'enter' to print the board." << std::endl;
+        getline(std::cin, enterBuffer);
 
-        if(cin.fail()){
-            cin.clear();
-            cin.ignore(10000, '\n');
-            cout << "Error with data entry. Terminating program!" << endl;
+        if(std::cin.fail()){
+            std::cin.clear();
+            std::cin.ignore(10000, '\n');
+            std::cout << "Error with data entry. Terminating program!" << std::endl;
             return 1;
         }
 

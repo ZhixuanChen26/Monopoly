@@ -13,20 +13,31 @@
 #include "card_move.h"
 #include "card_money.h"
 class MainWindow;
+
+/**
+ * @class BottomBar
+ * @brief Represents the bottom bar in the game's UI.
+ *
+ * Contains controls for game actions and displays game status.
+ * @author Adam Seif
+ */
+
 class BottomBar : public QDockWidget {
     Q_OBJECT
 protected:
 
-    QPushButton* rollButton;
-    QPushButton* upgradeButton;
-    QPushButton* purchaseButton;
-    QPushButton* endTurnButton;
+    QPushButton* rollButton; ///< Button for rolling dice.
+    QPushButton* upgradeButton; ///< Button for upgrading properties.
+    QPushButton* purchaseButton; ///< Button for purchasing properties.
+    QPushButton* endTurnButton; ///< Button to end the current turn.
+    // Buttons for viewing player status.
     QPushButton* player1Button;
     QPushButton* player2Button;
     QPushButton* player3Button;
     QPushButton* player4Button;
-    QGridLayout* layout;
-    QWidget* bottomWidget;
+    QGridLayout* layout; ///< Layout for arranging buttons.
+    QWidget* bottomWidget; ///< Container for layout.
+    // Game state variables.
     int diceRoll1;
     int diceRoll2;
     Bank* bank;
@@ -40,14 +51,13 @@ protected:
     int communityCount;
     int chanceCount;
     int index[10];
-    //storing reference pointers
     GUIPlayers** allPlayers;
     CentralWidget* monopolyBoard;
     MainWindow* myWindow;
     int numberOfPlayers;
     int currentPlayerNum;
 private slots:
-    //need to incorporate to make the buttons work
+    // Slot functions for button actions.
     void rollDice();
     void upgrade();
     void purchase();
@@ -58,11 +68,25 @@ private slots:
     void seePlayer4();
 
 public:
+    /** @brief Constructor for BottomBar. */
     BottomBar();
+    /** @brief Sets players for the game.
+     *  @param numberPlayers Number of players.
+     *  @param tempPlayers Array of player GUIs.
+     */
     void setPlayers(int numberPlayers, GUIPlayers* tempPlayers[]);
+    /** @brief Sets the central widget for the game board.
+     *  @param tempBoard Pointer to the game board widget.
+     */
     void setCentralWidget(CentralWidget* tempBoard);
+    /** @brief Sets the main window containing this widget.
+     *  @param tempWindow Pointer to the main window.
+     */
     void setMainWindow(MainWindow* tempWindow);
+    /** @brief Disables control buttons based on game state.
+     *  @param num Number of buttons to disable.
+     */
     void disableButtons(int num);
 
 };
-#endif
+#endif // BOTTOMBAR_H

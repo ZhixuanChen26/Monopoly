@@ -346,7 +346,7 @@ Game_Board::Game_Board(){
     spaces[27].setActionText("         ", "  $260   ");
 
     //Space 28
-    spaces[28].setName("University", "Hospital ");
+    spaces[28].setName("Western", "Hospital ");
     spaces[28].setType("Utility");
     spaces[28].setPropertyCost(150);
     spaces[28].setFreeParking(0);
@@ -920,6 +920,9 @@ void Game_Board::displayVertical(int firstSpace, int lastSpace, int numPlayers){
     std::cout << "|" << std::endl;
 
 }
+
+
+
 
 
 

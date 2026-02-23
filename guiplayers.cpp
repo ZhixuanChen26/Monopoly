@@ -77,37 +77,12 @@ void GUIPlayers::addProperty(int propertyNum, std::string propertyName, Space** 
     currentPropertyNum = propertyNum;
     allProperties[ownedCount] = propertyNum;
 
-    /*
-    QSignalMapper* signalMapper = new QSignalMapper(this);
-
-    for(int i = 0; i < ownedCount; i++){
-
-        connect(ownedProperties[ownedCount], SIGNAL(clicked(i)), this, SLOT(upgradeSpace(i)) );
-
-        //connect (ownedProperties[i], SIGNAL(clicked()), signalMapper, SLOT(map()));
-        //signalMapper->setMapping(ownedProperties[i], i);
-
-
-                //connect(ownedProperties[i], SIGNAL(clicked()), this, SLOT(upgradeSpace()) );
-    }
-    //connect (signalMapper, SIGNAL(mapped(int)), this, SIGNAL(clicked(int)));
-    //connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(upgradeSpace(int)));
-
-*/
-
-
     connect(ownedProperties[ownedCount], SIGNAL(clicked()), this, SLOT(upgradeSpace()) );
-
-
-
-
-
 
     layout->addWidget(ownedProperties[ownedCount]);
     sideBar->setLayout(layout);
     setWidget(sideBar);
     ownedCount++;
-
 }
 
 void GUIPlayers::enableUpgrade(){
@@ -173,7 +148,6 @@ void GUIPlayers::setBank(Bank* tempBank){
     bankPointer = new Bank;
     bankPointer = tempBank;
 }
-
 
 
 

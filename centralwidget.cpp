@@ -35,16 +35,12 @@ CentralWidget::CentralWidget(int tempNum, Player* tempPlayers): QWidget() {
     chanceCover = new QLabel(this);
     chanceCover->setPixmap(QPixmap("://Images/chancecard.png").transformed(rm));
     chanceCover->setGeometry(75, 130, 210, 130);
-   // chanceCover->setFixedWidth(180);
-   // chanceCover->setFixedHeight(100);
     chanceCover->setScaledContents(true);
     chanceCover->show();
 
     communityCover = new QLabel(this);
     communityCover->setPixmap(QPixmap("://Images/communitychest.png").transformed(rs));
     communityCover->setGeometry(366, 370, 210, 160);
-  //  communityCover->setFixedWidth(180);
-    //communityCover->setFixedHeight(100);
     communityCover->setScaledContents(true);
     communityCover->show();
 

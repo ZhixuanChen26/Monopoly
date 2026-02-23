@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 
-/**************     Primary constructor     ***************/
+// Primary constructor
 MainWindow::MainWindow(int numPlayers) {
     setFixedSize(800, 755);
 
@@ -491,7 +491,7 @@ MainWindow::MainWindow(int numPlayers) {
     spaces[27]->setActionText("         ", "  $260   ");
 
     //Space 28
-    spaces[28]->setName("University", "Hospital ");
+    spaces[28]->setName("Western", "Hospital ");
     spaces[28]->setType("Utility");
     spaces[28]->setPropertyCost(150);
     spaces[28]->setFreeParking(0);
@@ -644,7 +644,7 @@ MainWindow::MainWindow(int numPlayers) {
 //Secondary constructor
 MainWindow::MainWindow(){ }
 
-/***********     Setting up the entire window     ************/
+//Setting up the entire window
 void MainWindow::windowSetUp(){
 
     //Displaying GUIPlayers
@@ -679,13 +679,7 @@ void MainWindow::windowSetUp(){
     bottomBar->setFeatures(QDockWidget::NoDockWidgetFeatures);
     addDockWidget( Qt::BottomDockWidgetArea, bottomBar );
 
-    //Create numPlayers of QLabels in central widget,
-    //save images, and display the players on the board
-
 }
-
-
-/************     Rest of Regular Functions     ************/
 
 //assigning game pieces to players
 void MainWindow::setGamePiece(int playerNum, std::string pieceName){
@@ -780,15 +774,6 @@ std::string MainWindow::getSpaceName(int spaceIndex, int index){
 Space** MainWindow::getAllSpaces(){
     return spaces;
 }
-
-
-
-
-
-
-
-
-
 
 
 
